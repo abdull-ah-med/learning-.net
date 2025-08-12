@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<DatabaseOptions>(builder.Configuration.GetSection(DatabaseOptions.SectionName));
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(connection));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connection));
 builder.Services.AddControllers();
 builder.Services.AddScoped<ISystemCLK, SystemCLK>();
 builder.Services.AddScoped<IUserService, UserService>();
