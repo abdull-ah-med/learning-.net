@@ -4,10 +4,13 @@ using AuthApp.Options;
 using AuthApp.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<DatabaseOptions>(builder.Configuration.GetSection(DatabaseOptions.SectionName));
-var connection = builder.Configuration.GetConnectionString("DefaultConnection");
+var databaseOptions = builder.Configuration.GetSection(DatabaseOptions.SectionName).Get<DatabaseOptions>();
+var connection = databaseOptions!.ConnectionString;
+builder.Services.Configure<UserServiceOptions>(builder.Configuration.GetSection(UserServiceOptions.SectionName));
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connection));
 builder.Services.AddControllers();
 builder.Services.AddScoped<ISystemCLK, SystemCLK>();

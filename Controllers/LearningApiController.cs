@@ -82,7 +82,7 @@ public class LearningApiController(IUserService US, ISystemCLK time) : Controlle
         }
         try
         {
-            var userCreated = await US.CreateUserAsync(_signUpDto.FullName, _signUpDto.Username, _signUpDto.Email, _signUpDto.Password, time.TimeNow() );
+            var userCreated = await US.CreateUserAsync(_signUpDto.FullName, _signUpDto.Username, _signUpDto.Email, _signUpDto.Password, time.TimeNow());
             if (userCreated != null)
             {
                 var claims = new List<Claim>
